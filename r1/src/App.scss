@@ -128,5 +128,26 @@ body {
     display: block;
     width: 100%;
   }
+
+  h2 {
+    font-size: 20px;
+    font-weight: bold;
+    margin: 20px;
+    text-align: center;
+  }
+
+  .sort {
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    &__button {
+      color: darkgreen;
+      user-select: none;
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: bold;
+    }
+  }
 }
 

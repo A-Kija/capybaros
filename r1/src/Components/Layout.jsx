@@ -2,6 +2,7 @@ import { useContext } from 'react';
 import { BooksContext } from './BooksContext';
 import Books from './Books';
 import Top from './Top';
+// import Important from './Important';
 
 export default function Layout() {
 
@@ -9,6 +10,7 @@ export default function Layout() {
 
     return (
         <div className="layout">
+            {/* <Important/> */}
             <Top/>
             {
             books === null 
