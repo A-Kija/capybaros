@@ -7,24 +7,38 @@ const booksUrl = 'https://in3.dev/knygos/';
 const typesUrl = 'https://in3.dev/knygos/types/';
 
 
-export const BooksProvider = ({children}) => {
+export const BooksProvider = ({ children }) => {
 
-    const [books, setBooks] = useState(null);
+  const [books, setBooks] = useState(null);
+  const [types, setTypes] = useState(null);
 
-    useEffect(_ => {
-        axios.get(booksUrl)
-        .then(res => {
-            setBooks(res.data);
-            console.log(res.data);
-        });
-    }, []);
+  useEffect(_ => {
+    axios.get(booksUrl)
+      .then(res => {
+        setBooks(res.data.map(b => ({...b, show: true})));
+      });
+  }, []);
+
+  useEffect(_ => {
+    axios.get(typesUrl)
+      .then(res => {
+        setTypes(res.data);
+        console.log(res.data);
+      });
+
+  }, []);
 
 
 
   return (
-    <BooksContext.Provider value={{
-        books
-    }}>
+    <BooksContext.Provider value={
+      {
+        books: books,
+        types,
+        setBooks,
+        setTypes
+      }
+    }>
       {children}
     </BooksContext.Provider>
   )
