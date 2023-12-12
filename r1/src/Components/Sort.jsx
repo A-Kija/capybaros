@@ -22,6 +22,9 @@ export default function Sort() {
         }
 
         switch (sort) {
+            case 0:
+                setBooks(prev => [...prev].sort((a, b) => a.row - b.row));
+                break;
             case 1:
                 setBooks(prev => [...prev].sort((a, b) => a.title.localeCompare(b.title)));
                 break;

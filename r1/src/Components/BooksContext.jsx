@@ -15,7 +15,7 @@ export const BooksProvider = ({ children }) => {
   useEffect(_ => {
     axios.get(booksUrl)
       .then(res => {
-        setBooks(res.data.map(b => ({...b, show: true})));
+        setBooks(res.data.map((b, i) => ({...b, show: true, row: i})));
       });
   }, []);
 

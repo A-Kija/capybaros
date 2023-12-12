@@ -22,7 +22,7 @@ export default function Filter() {
         }
         const f = parseInt(filter);
         if (f === 0) {
-            setBooks(bk => bk.map(b => ({...b, show: true})));
+            setBooks(bk => (bk ?? []).map(b => ({...b, show: true})));
             return;
         }
         setBooks(bk => bk.map(b => (b.type === f ? {...b, show: true} : {...b, show: false})));
