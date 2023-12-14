@@ -83,8 +83,124 @@ function withRecursive($a) {
     }
     echo 'OUT:' . $a . '<br>';
 }
-
 withRecursive(1);
+
+
+$arrayFancy = [
+    [5, [8 , [1, [8, [8 , [1, 2, [8 , [1, 2, 3], 8],], 8], [1, [8 , [1, 2, 3], 8], 3]], 3], 8], 8],
+    [8 , [1, 2, [8 , [1, 2, 3], 8],], 8],
+    [[8 , [1, 2, 3], 8], 3, [1, 2, 3]],
+];
+
+// print_r($arrayFancy);
+
+// count sum of all numbers in array
+
+function sumArray($array) :int {
+    $sum = 0;
+    foreach ($array as $value) {
+        if (is_array($value)) {
+            $sum += sumArray($value);
+        } else {
+            $sum += $value;
+        }
+    }
+    return $sum;
+}
+
+echo '<br>';
+echo sumArray($arrayFancy);
+
+echo '<br><br><br>';
+
+$anonymous = function() {
+    echo 'I am anonymous function!';
+    return function() {
+        echo 'I am anonymous function inside anonymous function!';
+    };
+};
+
+$anonymous()();
+
+
+echo '<br><br>';
+
+function withCallback($callback) {
+    echo 'I am in function with callback!<br>';
+    $callback();
+}
+
+
+
+$abc = 123;
+withCallback(function() use ($abc) {
+    echo 'I am anonymous function inside function with callback! - ' . $abc . '<br>';
+});
+
+
+echo '<br><br>';
+
+$k1 = 1;
+
+$a1 = function() use (&$k1) {
+    echo 'I am anonymous function ' . $k1 . '!<br>';
+};
+
+$k1++;
+
+$a1();
+
+echo '<br><br>';
+
+
+
+$arrow = fn() => 'I am arrow function!' . $k1 . '<br>';
+
+
+echo $arrow();
+
+echo '<br><br>';
+
+$farm = [
+    [
+        'name' => 'Cow',
+        'sound' => 'Muuuu',
+        'weight' => 500,
+    ],
+    [
+        'name' => 'Pig',
+        'sound' => 'Kra kra',
+        'weight' => 100,
+    ],
+    [
+        'name' => 'Chicken',
+        'sound' => 'Cip cip',
+        'weight' => 1,
+    ],
+    [
+        'name' => 'Horse',
+        'sound' => 'Iiiiiii',
+        'weight' => 800,
+    ],
+    [
+        'name' => 'Sheep',
+        'sound' => 'Beeeee',
+        'weight' => 200,
+    ],
+];
+
+$weightPlus1 = array_map(function($animal) {
+    $animal['weight'] += 1;
+    return $animal;
+}, $farm);
+
+// $weightPlus1 = array_map(fn($animal) => (($animal['weight'] + 1) && $animal), $farm);
+
+array_walk($farm, fn(&$animal) => $animal['weight'] += 1);
+
+print_r($farm);
+
+
 
 
 
