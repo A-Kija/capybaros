@@ -20,5 +20,4 @@ require __DIR__ . '/../here.php';
 // require is only one realy correct way to include files
 
 
-
 echo '<h1>Big INDEX end</h1>';
