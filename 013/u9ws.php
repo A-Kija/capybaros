@@ -3,15 +3,16 @@ session_start();
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $cb = $_POST['cb'] ?? [];
-    $count = count($cb);
-    header('Location: http://localhost/capybaros/013/u9ws.php?count=' . $count);
+    $_SESSION['count'] = count($cb);
+    header('Location: http://localhost/capybaros/013/u9ws.php');
     die;
 }
 
 
-if (isset($_GET['count'])) {
-    $count = $_GET['count'];
+if (isset($_SESSION['count'])) {
+    $count = $_SESSION['count'];
     $color = 'white';
+    unset($_SESSION['count']);
 } else {
     $color = 'black';
     $letters = range('A', 'J');
