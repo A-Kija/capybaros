@@ -1,12 +1,16 @@
 <?php
     session_start();
+    if (isset($_SESSION['login']) && $_SESSION['login'] == 'sitas yra prisilogines') {
+        header('Location: http://localhost/capybaros/auth/index.php');
+        die;
+    }
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $users = file_get_contents(__DIR__.'/data/users.ser');
         $users = unserialize($users);
         foreach ($users as $user) {
             if ($user['email'] == $_POST['email']) {
                 if ($user['password'] == sha1($_POST['password'])) {
-                    $_SESSION['login'] = 1;
+                    $_SESSION['login'] = 'sitas yra prisilogines';
                     $_SESSION['name'] = $user['name'];
                     header('Location: http://localhost/capybaros/auth/authorized.php');
                     die;
