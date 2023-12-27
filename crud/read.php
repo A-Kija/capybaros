@@ -8,25 +8,53 @@
 </head>
 <body>
 
-    <nav class="navbar navbar-light bg-light">
-        <div class="container">
-            <a class="navbar-brand" href="#">Navbar</a>
-        </div>
-    </nav>
-
+    <?php require __DIR__ . '/parts/nav.php' ?>
     <div class="container mt-5">
         <div class="row">
             <div class="col-2">
-            Box ID
-            </div>
-            <div class="col-2">
-            Amount
-            </div>
-            <div class="col-8">
-            Action
+                <h2>Read</h2>
             </div>
         </div>
     </div>
+
+
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item">
+            <div class="container">
+                <div class="row">
+                    <div class="col-2">
+                    <b>Box ID</b>
+                    </div>
+                    <div class="col-2">
+                    <b>Amount</b>
+                    </div>
+                    <div class="col-8">
+                    <b>Action</b>
+                    </div>
+                </div>
+            </div>
+        </li>
+
+        <?php $boxes = json_decode(file_get_contents(__DIR__ . '/data/boxes.json'), true) ?>
+        <?php foreach ($boxes as $box) : ?>
+        <li class="list-group-item">
+            <div class="container">
+                <div class="row">
+                    <div class="col-2">
+                        <?= $box['boxId'] ?>
+                    </div>
+                    <div class="col-2">
+                        <?= $box['amount'] ?>
+                    </div>
+                    <div class="col-8">
+                        <a href="http://localhost/capybaros/crud/show.php?id=<?= $box['boxId'] ?>" class="btn btn-outline-success btn-sm">Show</a>
+                    </div>
+                </div>
+            </div>
+        </li>
+
+        <?php endforeach ?>
+    </ul>
     
 </body>
 </html>
