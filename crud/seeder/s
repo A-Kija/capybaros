@@ -1,0 +1,19 @@
+<?php
+
+// Path: crud/seeder/s
+// [
+    // [boxId: 5, amount: 10],
+    // [boxId: 45, amount: 10],
+    // [boxId: 45, amount: 150],
+// ]
+
+$boxes = [];
+
+for ($i = 0; $i < 17; $i++) {
+    $boxes[] = [
+        'boxId' => rand(10000000, 99999999),
+        'amount' => rand(1, 1000),
+    ];
+}
+
+file_put_contents(__DIR__ . '/../data/boxes.json', json_encode($boxes, JSON_PRETTY_PRINT));
