@@ -11,4 +11,6 @@ $boxes[] = [
 ];
 file_put_contents(__DIR__ . '/data/boxes.json', json_encode($boxes, JSON_PRETTY_PRINT));
 
+$_SESSION['success'] = "Box #$boxId created";
+
 header('Location: http://localhost/capybaros/crud/read.php');

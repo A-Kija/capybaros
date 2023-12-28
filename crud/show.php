@@ -10,6 +10,7 @@
 <body>
 
     <?php require __DIR__ . '/parts/nav.php' ?>
+    <?php require __DIR__ . '/parts/msg.php' ?>
 
     <?php 
         $id = $_GET['id'] ?? 0;

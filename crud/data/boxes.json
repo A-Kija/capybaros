@@ -4,35 +4,15 @@
         "amount": 479
     },
     {
-        "boxId": 64960101,
-        "amount": 751
-    },
-    {
-        "boxId": 86436306,
-        "amount": 66
-    },
-    {
-        "boxId": 40859749,
-        "amount": 407
-    },
-    {
-        "boxId": 36466316,
-        "amount": 371
-    },
-    {
-        "boxId": 92789875,
-        "amount": 345
-    },
-    {
-        "boxId": 74985071,
-        "amount": 47
-    },
-    {
-        "boxId": 90856875,
-        "amount": 673
-    },
-    {
         "boxId": 21239226,
         "amount": 781
+    },
+    {
+        "boxId": 32713589,
+        "amount": 222
+    },
+    {
+        "boxId": 42217798,
+        "amount": 256
     }
 ]
