@@ -16,8 +16,6 @@ $tv2->perjungtiPrograma(2);
 $tv3->perjungtiPrograma(3);
 
 
-
-
 Tv::keistiKanalus($naujiKanalai);
 
 $tv4 = new Tv('Panasonic', 'Jonas');
