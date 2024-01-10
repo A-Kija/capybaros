@@ -1,0 +1,17 @@
+{
+    "name": "raides/dideles",
+    "description": "abc",
+    "autoload": {
+        "psr-4": {
+            "": "",
+            "Visai\\Kitas\\Dalykas\\": "d2/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Bebras",
+            "email": "bebras@bebras.com"
+        }
+    ],
+    "require": {}
+}
