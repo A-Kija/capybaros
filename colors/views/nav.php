@@ -18,7 +18,7 @@
           </a>
           <ul class="dropdown-menu">
             <li><a class="dropdown-item" href="<?= URL ?>/colors/create">Create new</a></li>
-            <li><a class="dropdown-item" href="#">Show all colors</a></li>
+            <li><a class="dropdown-item" href="<?= URL ?>/colors">Show all colors</a></li>
           </ul>
         </li>
         <li class="nav-item">

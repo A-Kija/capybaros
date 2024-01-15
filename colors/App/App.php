@@ -27,6 +27,12 @@ class App
             return (new HomeController)->color($url[1]);
         }
 
+
+        if ('GET' == $method && count($url) == 1 && $url[0] == 'colors') {
+            return (new ColorController)->index();
+        }
+
+
         if ('GET' == $method && count($url) == 2 && $url[0] == 'colors' && $url[1] == 'create') {
             return (new ColorController)->create();
         }
@@ -48,5 +54,11 @@ class App
         require ROOT . 'views/bottom.php';
         $content = ob_get_clean();
         return $content;
+    }
+
+    public static function redirect($url)
+    {
+        header('Location: '.URL.'/'.$url);
+        return null;
     }
 }

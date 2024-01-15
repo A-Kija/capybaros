@@ -4,6 +4,7 @@
     "license": "MIT",
     "autoload": {
         "psr-4": {
+            "App\\DB\\": "App/DB/",
             "Colors\\": ""
         }
     },
