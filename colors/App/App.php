@@ -10,6 +10,8 @@ class App
     {
         $server = $_SERVER['REQUEST_URI'];
         // $server = str_replace('/colors/public/', '', $server);
+
+        $server = preg_replace('/\?.*$/', '', $server);
         $url = explode('/', $server);
         array_shift($url);
         return self::router($url);
@@ -29,7 +31,7 @@ class App
 
 
         if ('GET' == $method && count($url) == 1 && $url[0] == 'colors') {
-            return (new ColorController)->index();
+            return (new ColorController)->index($_GET);
         }
 
 
@@ -39,6 +41,18 @@ class App
 
         if ('POST' == $method && count($url) == 2 && $url[0] == 'colors' && $url[1] == 'store') {
             return (new ColorController)->store($_POST);
+        }
+
+        if ('POST' == $method && count($url) == 3 && $url[0] == 'colors' && $url[1] == 'destroy') {
+            return (new ColorController)->destroy($url[2]);
+        }
+
+        if ('GET' == $method && count($url) == 3 && $url[0] == 'colors' && $url[1] == 'edit') {
+            return (new ColorController)->edit($url[2]);
+        }
+
+        if ('POST' == $method && count($url) == 3 && $url[0] == 'colors' && $url[1] == 'update') {
+            return (new ColorController)->update($url[2], $_POST);
         }
 
 
