@@ -3,6 +3,7 @@ namespace Colors\App;
 
 use Colors\App\Controllers\HomeController;
 use Colors\App\Controllers\ColorController;
+use Colors\App\Message;
 
 class App
 {
@@ -62,6 +63,7 @@ class App
     public static function view($view, $data = [])
     {
         extract($data);
+        $msg = Message::get()->show();
         ob_start();
         require ROOT . 'views/top.php';
         require ROOT . "views/$view.php";

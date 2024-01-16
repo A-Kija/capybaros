@@ -45,6 +45,7 @@
                                     </div>
                                     <div class="col-2">
                                         <p>Color: <?= $color->color ?></p>
+                                        <p>Color: <?= $color->name ?></p>
                                     </div>
                                     <div class="col-1"></div>
                                     <div class="col-4">
