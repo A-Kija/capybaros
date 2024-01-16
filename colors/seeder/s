@@ -3,17 +3,17 @@
 echo "seeder started\n";
 
 $users = [
-    [
+    (object)[
         'name' => 'Briedis',
         'email' => 'briedis@gmail.com',
         'password' => sha1('123'),
     ],
-    [
+    (object)[
         'name' => 'Bebras',
         'email' => 'bebras@gmail.com',
         'password' => sha1('123'),
     ],
-    [
+    (object)[
         'name' => 'Barsukas',
         'email' => 'barsukas@gmail.com',
         'password' => sha1('123'),

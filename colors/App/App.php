@@ -3,7 +3,9 @@ namespace Colors\App;
 
 use Colors\App\Controllers\HomeController;
 use Colors\App\Controllers\ColorController;
+use Colors\App\Controllers\LoginController;
 use Colors\App\Message;
+use Colors\App\Auth;
 
 class App
 {
@@ -26,8 +28,22 @@ class App
         if ('GET' == $method && count($url) == 1 && $url[0] == '') {
             return (new HomeController)->index();
         }
-        if ('GET' == $method && count($url) == 2 && $url[0] == 'home') {
-            return (new HomeController)->color($url[1]);
+
+        if ('GET' == $method && count($url) == 1 && $url[0] == 'login') {
+            return (new LoginController)->index();
+        }
+
+        if ('POST' == $method && count($url) == 1 && $url[0] == 'login') {
+            return (new LoginController)->login($_POST);
+        }
+
+        if ('POST' == $method && count($url) == 1 && $url[0] == 'logout') {
+            return (new LoginController)->logout();
+        }
+
+
+        if ($url[0] == 'colors' && !Auth::get()->getStatus()) {
+            return self::redirect('login');
         }
 
 
@@ -64,6 +80,7 @@ class App
     {
         extract($data);
         $msg = Message::get()->show();
+        $auth = Auth::get()->getStatus();
         ob_start();
         require ROOT . 'views/top.php';
         require ROOT . "views/$view.php";

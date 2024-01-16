@@ -25,10 +25,16 @@
           <a class="nav-link disabled" aria-disabled="true">Disabled</a>
         </li>
       </ul>
-      <form class="d-flex" role="search">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success" type="submit">Search</button>
-      </form>
+      <div class="d-flex">
+        <?php if ($auth): ?>
+          <div class="me-3">Hello, <?= $auth ?></div>
+          <form action="<?= URL ?>/logout" method="post">
+            <button class="btn btn-outline-danger">Logout</button>
+          </form>
+        <?php else: ?>
+          <a href="<?= URL ?>/login" class="btn btn-outline-primary">Login</a>
+        <?php endif ?>
+      </div>
     </div>
   </div>
 </nav>
