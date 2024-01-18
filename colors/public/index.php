@@ -4,6 +4,9 @@ use Colors\App\Message;
 use Colors\App\Auth;
 
 session_start();
+
+define('DB', 'maria');
+
 require '../vendor/autoload.php';
 define('ROOT', __DIR__ . '/../');
 define('URL', 'http://super-colors.test');
