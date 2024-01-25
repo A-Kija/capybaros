@@ -33,3 +33,4 @@ Route::post('/count', [ForestController::class, 'count'])->name('do-count');
 
 Route::get('/squares', [ForestController::class, 'showSquares'])->name('squares');
 Route::post('/squares', [ForestController::class, 'squares'])->name('do-squares');
+Route::put('/squares', [ForestController::class, 'addSquares'])->name('add-squares');

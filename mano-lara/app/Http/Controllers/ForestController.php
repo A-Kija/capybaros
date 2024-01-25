@@ -53,4 +53,24 @@ class ForestController extends Controller
             'squares' => $squares
         ]);
     }
+
+    public function squares(Request $request)
+    {
+        $count = $request->count ?? 0;
+
+        session()->put('squares', $count);
+
+        return redirect()->route('squares');
+    }
+
+    public function addSquares(Request $request)
+    {
+        $count = $request->count ?? 0;
+        $was = session()->get('squares', 0);
+        $count += $was;
+
+        session()->put('squares', $count);
+
+        return redirect()->route('squares');
+    }
 }
