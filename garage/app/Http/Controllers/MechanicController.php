@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Mechanic;
 use App\Http\Requests\StoreMechanicRequest;
 use App\Http\Requests\UpdateMechanicRequest;
+// use Illuminate\Http\Request;
 
 class MechanicController extends Controller
 {
@@ -21,7 +22,7 @@ class MechanicController extends Controller
      */
     public function create()
     {
-        //
+        return view('mechanics.create');
     }
 
     /**
@@ -29,7 +30,9 @@ class MechanicController extends Controller
      */
     public function store(StoreMechanicRequest $request)
     {
-        //
+        Mechanic::create($request->all());
+
+        return redirect()->route('mechanics-index');
     }
 
     /**
