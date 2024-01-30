@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-5">
             <div class="card mt-5">
-                <div class="card-header">Įdarbinti naują mechaniką</div>
+                <div class="card-header">Pridėti naują sunkvežimis</div>
                 <div class="card-body">
                     <form action="{{route('trucks-store')}}" method="post">
                         <div class="form-group mb-3">
@@ -38,4 +38,4 @@
 </div>
 @endsection
 
-@section('title', 'Įdarbinti naują mechaniką')
+@section('title', 'Naujas sunkvežimis')
