@@ -13,4 +13,9 @@ class Mechanic extends Model
         'name',
         'surname',
     ];
+
+    public function trucks()
+    {
+        return $this->hasMany(Truck::class);
+    }
 }

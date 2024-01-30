@@ -45,6 +45,20 @@
                             </div>
                         </li>
 
+                        <li class="nav-item dropdown">
+                            <a id="navbar3Dropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                Sunkvežimiai
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbar2Dropdown">
+                                <a class="dropdown-item" href="{{route('trucks-index')}}">
+                                    Visi sunkvežimiai
+                                </a>
+                                <a class="dropdown-item" href="{{route('trucks-create')}}">
+                                    Naujas sunkvežimis
+                                </a>
+                            </div>
+                        </li>
+
                     </ul>
 
                     <!-- Right Side Of Navbar -->
