@@ -27,8 +27,26 @@ class MechanicController extends Controller
         $sortBy = $request->query('sort', '');
         $perPageSelect = Mechanic::getPerPageSelect();
         $perPage = (int) $request->query('per_page', 0);
+        $s = $request->query('s', '');
 
         $mechanics = Mechanic::query();
+
+        if ($s) {
+            $keywords = explode(' ', $s);
+            if (count($keywords) > 1) {
+                $mechanics = $mechanics->where(function ($query) use ($keywords) {
+                    foreach (range(0, 1) as $index) {
+                        $query->orWhere('name', 'like', '%'.$keywords[$index].'%')
+                        ->where('surname', 'like', '%'.$keywords[1 - $index].'%');
+                    }
+                });
+            } else {
+                $mechanics = $mechanics
+                    ->where('name', 'like', "%{$s}%")
+                    ->orWhere('surname', 'like', "%{$s}%");
+            }
+        }
+
 
         $mechanics = match($sortBy) {
             'name_asc' => $mechanics->orderBy('surname'),
@@ -50,6 +68,7 @@ class MechanicController extends Controller
             'sortBy' => $sortBy,
             'perPageSelect' => $perPageSelect,
             'perPage' => $perPage,
+            's' => $s,
         ]);
     }
 

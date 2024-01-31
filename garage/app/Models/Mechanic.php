@@ -34,17 +34,19 @@ class Mechanic extends Model
     public static function getSorts()
     {
         return self::$sorts;
-    }    
+    } 
+    
+    public static function getPerPageSelect()
+    {
+        return self::$perPageSelect;
+    }
     
     public function trucks()
     {
         return $this->hasMany(Truck::class);
     }
 
-    public static function getPerPageSelect()
-    {
-        return self::$perPageSelect;
-    }
+
 
     
 }

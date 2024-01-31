@@ -7,10 +7,10 @@
             <div class="card mt-5">
                 <div class="card-header">
                     <h1>Dirbantys Mechanikai</h1>
-                    <form>
+                    <form action="{{route('mechanics-index')}}">
                         <div class="container">
                             <div class="row">
-                                <div class="col-4">
+                                <div class="col-3">
                                     <div class="form-group mb-3">
                                         <label class="m-2">Rūšiavimas</label>
                                         <select class="form-select mt-2" name="sort">
@@ -20,14 +20,20 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-4">
+                                <div class="col-2">
                                     <div class="form-group mb-3">
-                                        <label class="m-2">Rodyti puslapyje rezultatų</label>
+                                        <label class="m-2">Puslapyje rezultatų</label>
                                         <select class="form-select mt-2" name="per_page">
                                             @foreach ($perPageSelect as $perPageKey => $perPageValue)
                                             <option value="{{ $perPageKey }}" @if($perPage == $perPageKey) selected @endif>{{ $perPageValue }}</option>
                                             @endforeach
                                         </select>
+                                    </div>
+                                </div>
+                                <div class="col-3">
+                                    <div class="form-group mb-3">
+                                        <label class="m-2">Ieškoti mechaniko</label>
+                                        <input type="text" class="form-control mt-2" name="s" value="{{ $s }}">
                                     </div>
                                 </div>
                                 <div class="col-2">
