@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Mechanic;
 use App\Http\Requests\StoreMechanicRequest;
 use App\Http\Requests\UpdateMechanicRequest;
-// use Illuminate\Http\Request;
+use Illuminate\Http\Request;
 
 class MechanicController extends Controller
 {
@@ -19,12 +19,37 @@ class MechanicController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $mechanics = Mechanic::all();
+        // $mechanics = Mechanic::all()->sortByDesc('surname'); in collection
+        
+        $sorts = Mechanic::getSorts();
+        $sortBy = $request->query('sort', '');
+        $perPageSelect = Mechanic::getPerPageSelect();
+        $perPage = (int) $request->query('per_page', 0);
+
+        $mechanics = Mechanic::query();
+
+        $mechanics = match($sortBy) {
+            'name_asc' => $mechanics->orderBy('surname'),
+            'name_desc' => $mechanics->orderByDesc('surname'),
+            'truck_count_asc' => $mechanics->withCount('trucks')->orderBy('trucks_count'),
+            'truck_count_desc' => $mechanics->withCount('trucks')->orderByDesc('trucks_count'),
+            default => $mechanics
+        };
+
+        if ($perPage > 0) {
+            $mechanics = $mechanics->paginate($perPage)->withQueryString();
+        } else {
+            $mechanics = $mechanics->get();
+        }
 
         return view('mechanics.index', [
             'mechanics' => $mechanics,
+            'sorts' => $sorts,
+            'sortBy' => $sortBy,
+            'perPageSelect' => $perPageSelect,
+            'perPage' => $perPage,
         ]);
     }
 

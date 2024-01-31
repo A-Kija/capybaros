@@ -10,13 +10,30 @@
                     <form>
                         <div class="container">
                             <div class="row">
-                                <div class="col-3">
+                                <div class="col-4">
                                     <div class="form-group mb-3">
-                                        <label class="m-1">Rūšiavimas</label>
-                                        <select class="form-select" name="sort">
-                                            <option value="0">Nerūšiuota</option>
-
+                                        <label class="m-2">Rūšiavimas</label>
+                                        <select class="form-select mt-2" name="sort">
+                                            @foreach ($sorts as $sortKey => $sortValue)
+                                            <option value="{{ $sortKey }}" @if($sortBy == $sortKey) selected @endif>{{ $sortValue }}</option>
+                                            @endforeach
                                         </select>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="form-group mb-3">
+                                        <label class="m-2">Rodyti puslapyje rezultatų</label>
+                                        <select class="form-select mt-2" name="per_page">
+                                            @foreach ($perPageSelect as $perPageKey => $perPageValue)
+                                            <option value="{{ $perPageKey }}" @if($perPage == $perPageKey) selected @endif>{{ $perPageValue }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-2">
+                                    <div class="form-group">
+                                        <button type="submit" class="btn btn-primary mt-5">Rodyti</button>
+                                        <a href="{{ route('mechanics-index') }}" class="btn btn-secondary mt-5 ms-2">Pradinis</a>
                                     </div>
                                 </div>
                             </div>
@@ -54,6 +71,11 @@
                     </div>
                 </div>
             </div>
+            @if ($perPage)
+            <div class="mt-3">
+                {{ $mechanics->links() }}
+            </div>
+            @endif
         </div>
     </div>
 </div>
