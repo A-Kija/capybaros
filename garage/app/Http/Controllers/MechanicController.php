@@ -47,7 +47,6 @@ class MechanicController extends Controller
             }
         }
 
-
         $mechanics = match($sortBy) {
             'name_asc' => $mechanics->orderBy('surname'),
             'name_desc' => $mechanics->orderByDesc('surname'),
@@ -87,7 +86,7 @@ class MechanicController extends Controller
     {
         Mechanic::create($request->all());
 
-        return redirect()->route('mechanics-index');
+        return redirect()->route('mechanics-index')->with('ok', 'Štai ir naujas mechanikas!');
     }
 
     /**
@@ -117,7 +116,7 @@ class MechanicController extends Controller
     {
         $mechanic->update($request->all());
 
-        return redirect()->route('mechanics-index');
+        return redirect()->route('mechanics-index')->with('ok', 'Mechaniko duomenys dabar jau pakeisti.');
     }
 
     /**
@@ -139,6 +138,6 @@ class MechanicController extends Controller
     {
         $mechanic->delete();
 
-        return redirect()->route('mechanics-index');
+        return redirect()->route('mechanics-index')->with('info', 'Liūdna informuoti, bet mechanikas atleistas iš darbo.');
     }
 }

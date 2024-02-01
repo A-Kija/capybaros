@@ -10,12 +10,12 @@
                     <form action="{{route('mechanics-store')}}" method="post">
                         <div class="form-group mb-3">
                             <label>Vardas</label>
-                            <input type="text" name="name" class="form-control">
+                            <input type="text" name="name" class="form-control" value="{{old('name')}}">
                             <small class="form-text text-muted">Įveskite naujo mechaniko vardą</small>
                         </div>
                         <div class="form-group mb-3">
                             <label>Pavardė</label>
-                            <input type="text" name="surname" class="form-control">
+                            <input type="text" name="surname" class="form-control" value="{{old('surname')}}">
                             <small class="form-text text-muted">Įveskite naujo mechaniko pavardę</small>
                         </div>
                         <button type="submit" class="btn btn-primary">Įdarbinti</button>

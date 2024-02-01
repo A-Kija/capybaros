@@ -9,6 +9,7 @@
                 <div class="card-body">
                     <div>
                         <a href="{{ route('mechanics-index') }}" class="btn btn-secondary m-1">Visi mechanikai</a>
+                        <a href="{{ route('trucks-index', ['mechanic_id' => $mechanic->id]) }}" class="btn btn-secondary m-1">Mechaniko sunkvežimiai</a>
                     </div>
                 </div>
             </div>

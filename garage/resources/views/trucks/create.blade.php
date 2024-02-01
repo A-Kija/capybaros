@@ -10,12 +10,12 @@
                     <form action="{{route('trucks-store')}}" method="post">
                         <div class="form-group mb-3">
                             <label>Sunkvežimio modelis</label>
-                            <input type="text" name="brand" class="form-control">
+                            <input type="text" name="brand" class="form-control" value="{{old('brand')}}">
                             <small class="form-text text-muted">Įveskite naujo sunkvežimio modelį</small>
                         </div>
                         <div class="form-group mb-3">
                             <label>Valstybinis numeris</label>
-                            <input type="text" name="plate" class="form-control">
+                            <input type="text" name="plate" class="form-control" value="{{old('plate')}}">
                             <small class="form-text text-muted">Įveskite naujo sunkvežimio valstybinį numerį</small>
                         </div>
                         <div class="form-group mb-3">
@@ -23,7 +23,9 @@
                             <select class="form-select" name="mechanic_id">
                                 <option selected value="0">Pasirinkite mechaniką</option>
                                 @foreach ($mechanics as $mechanic)
-                                <option value="{{$mechanic->id}}">{{$mechanic->name}} {{$mechanic->surname}}</option>
+                                <option value="{{$mechanic->id}}"
+                                    @if(old('mechanic_id', $mechanicId ? $mechanicId : 0) == $mechanic->id) selected @endif
+                                    >{{$mechanic->name}} {{$mechanic->surname}}</option>
                                 @endforeach
                             </select>
                             <small class="form-text text-muted">Priskirkite mechaniką sunkvežimio priežiūrai</small>

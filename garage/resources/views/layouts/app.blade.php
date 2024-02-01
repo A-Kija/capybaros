@@ -109,6 +109,9 @@
         </nav>
 
         <main class="py-4">
+            @include('layouts.errors')
+            @include('layouts.ok')
+            @include('layouts.info')
             @yield('content')
         </main>
     </div>

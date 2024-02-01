@@ -19,13 +19,29 @@ class TruckController extends Controller
         // $truck = Truck::where('mechanic_id', 1)->first();
         // dump($truck->mechanic);
         // dd($truck->mechanic());
+
+        $mechanics = Mechanic::orderBy('name')->get();
+
+        $allBrands = Truck::select('brand')->distinct()->orderBy('brand')->get()->pluck('brand')->toArray();
+
+
         
         $sorts = Truck::getSorts();
         $sortBy = $request->query('sort', '');
         $perPageSelect = Truck::getPerPageSelect();
         $perPage = (int) $request->query('per_page', 0);
+        $mechanicId = (int) $request->query('mechanic_id', 0);
+        $brandId = $request->query('brand', '');
 
         $trucks = Truck::query();
+
+        if ($mechanicId > 0) {
+            $trucks = $trucks->where('mechanic_id', $mechanicId);
+        }
+
+        if ($brandId !== '') {
+            $trucks = $trucks->where('brand', $brandId);
+        }
 
         $trucks = match($sortBy) {
             'model_asc' => $trucks->orderBy('brand'),
@@ -45,18 +61,24 @@ class TruckController extends Controller
             'sortBy' => $sortBy,
             'perPageSelect' => $perPageSelect,
             'perPage' => $perPage,
+            'mechanics' => $mechanics,
+            'mechanicId' => $mechanicId,
+            'brands' => $allBrands,
+            'brandId' => $brandId,
         ]);
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Request $request)
     {
         $trucks = Mechanic::all();
+        $mechanicId = (int) $request->query('mechanic_id', 0);
 
         return view('trucks.create', [
             'mechanics' => $trucks,
+            'mechanicId' => $mechanicId,
         ]);
     }
 
@@ -67,7 +89,7 @@ class TruckController extends Controller
     {
         Truck::create($request->all());
 
-        return redirect()->route('trucks-index');
+        return redirect()->route('trucks-index')->with('ok', 'Sunkvežimis sėkmingai pridėtas.');
     }
 
     /**
@@ -100,7 +122,7 @@ class TruckController extends Controller
     {
         $truck->update($request->all());
 
-        return redirect()->route('trucks-index');
+        return redirect()->route('trucks-index')->with('ok', 'Sunkvežimis sėkmingai atnaujintas.');
     }
 
     /**
@@ -121,6 +143,6 @@ class TruckController extends Controller
     {
         $truck->delete();
 
-        return redirect()->route('trucks-index');
+        return redirect()->route('trucks-index')->with('info', 'Sunkvežimis buvo išvežtas į metalo laužą.');
     }
 }
