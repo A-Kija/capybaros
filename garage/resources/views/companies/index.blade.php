@@ -19,7 +19,7 @@
                             <input type="text" name="name" class="form-control">
                         </div>
                         <div class="form-group mt-4">
-                        <button type="button" class="btn btn-primary">Išsaugoti</button>
+                            <button type="button" class="btn btn-primary">Išsaugoti</button>
                         </div>
                     </form>
                 </div>
@@ -30,13 +30,15 @@
                 <div class="card-header">
                     <h2>Įmonių sąrašas</h2>
                 </div>
-                <div class="card-body">
-                    
+                <div class="card-body" data-list data-url="{{route('companies-list')}}">
+
                 </div>
             </div>
         </div>
     </div>
 </div>
+<section data-modal-delete></section>
+
 @endsection
 
 @section('title', 'Įmonės')

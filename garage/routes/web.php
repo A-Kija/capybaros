@@ -50,6 +50,9 @@ Route::prefix('trucks')->name('trucks-')->group(function () {
 Route::prefix('companies')->name('companies-')->group(function () {
     Route::get('/', [C::class, 'index'])->name('index');
     Route::post('/', [C::class, 'store'])->name('store');
+    Route::get('/list', [C::class, 'list'])->name('list');
+    Route::get('/{company}/delete', [C::class, 'delete'])->name('delete');
+    Route::delete('/{company}', [C::class, 'destroy'])->name('destroy');
 });
 
 // Authentication Routes

@@ -8,29 +8,42 @@ use App\Http\Requests\UpdateCompanyRequest;
 
 class CompanyController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+
     public function index()
     {
         return view('companies.index');        
     }
 
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(StoreCompanyRequest $request)
     {
         $id = Company::create($request->all())->id;
-
-        // json response
 
         return response()->json([
             'message' => 'Įmonė sėkmingai sukurta!',
             'id' => $id
         ]);
     }
+
+    public function list()
+    {
+        
+        $companies = Company::all();
+        $html = view('companies.list', ['companies' => $companies])->render();
+
+        return response()->json([
+            'html' => $html
+        ]);
+    }
+
+    public function delete(Company $company)
+    {
+        $html = view('companies.delete', ['company' => $company])->render();
+
+        return response()->json([
+            'html' => $html
+        ]);
+    }
+
 
     /**
      * Display the specified resource.

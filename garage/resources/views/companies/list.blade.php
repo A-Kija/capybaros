@@ -1,4 +1,4 @@
-<table class="table">
+<table class="table" data-list-table>
     <tr>
         <th>Tipas</th>
         <th>Pavadinimas</th>
@@ -9,9 +9,9 @@
         <td>{{ $company->type }}</td>
         <td>{{ $company->name }}</td>
         <td>
-            <a class="btn btn-success m-1">Redaguoti</a>
-            <a class="btn btn-danger m-1">Atsisakyt</a>
-            <a class="btn btn-secondary m-1">Peržiūrėti</a>
+            <button data-action="edit" class="btn btn-success m-1">Redaguoti</button>
+            <button data-action="delete" data-url="{{route('companies-delete', $company)}}" class="btn btn-danger m-1">Atsisakyti</button>
+            <button data-action="show" class="btn btn-secondary m-1">Peržiūrėti</button>
         </td>
     </tr>
     @empty
