@@ -29,6 +29,20 @@
             <div class="card mt-5">
                 <div class="card-header">
                     <h2>Įmonių sąrašas</h2>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-3">
+                                <div class="form-group mb-3">
+                                    <label class="m-2">Rūšiavimas</label>
+                                    <select class="form-select mt-2" data-sort-select>
+                                        @foreach($sorts as $value => $sort)
+                                        <option value="{{$value}}">{{$sort}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="card-body" data-list data-url="{{route('companies-list')}}">
 

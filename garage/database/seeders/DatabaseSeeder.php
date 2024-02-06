@@ -49,6 +49,7 @@ class DatabaseSeeder extends Seeder
 
         foreach (range(1, 53) as $i) {
             $companyName = $faker->company;
+            $companyName = str_replace('"', '', $companyName);
             $companyNameParts = explode(' ', $companyName);
             $companyNameWithoutFirstWord = implode(' ', array_slice($companyNameParts, 1));
 
