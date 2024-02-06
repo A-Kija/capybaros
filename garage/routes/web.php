@@ -53,6 +53,9 @@ Route::prefix('companies')->name('companies-')->group(function () {
     Route::get('/list', [C::class, 'list'])->name('list');
     Route::get('/{company}/delete', [C::class, 'delete'])->name('delete');
     Route::delete('/{company}', [C::class, 'destroy'])->name('destroy');
+    Route::get('/{company}/edit', [C::class, 'edit'])->name('edit');
+    Route::put('/{company}', [C::class, 'update'])->name('update');
+    Route::get('/{company}', [C::class, 'show'])->name('show');
 });
 
 // Authentication Routes

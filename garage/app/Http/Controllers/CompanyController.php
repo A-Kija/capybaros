@@ -44,36 +44,42 @@ class CompanyController extends Controller
         ]);
     }
 
-
-    /**
-     * Display the specified resource.
-     */
+    
     public function show(Company $company)
     {
-        //
+        $html = view('companies.show', ['company' => $company])->render();
+
+        return response()->json([
+            'html' => $html
+        ]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
+
     public function edit(Company $company)
     {
-        //
+        $html = view('companies.edit', ['company' => $company])->render();
+
+        return response()->json([
+            'html' => $html
+        ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
+
     public function update(UpdateCompanyRequest $request, Company $company)
     {
-        //
+        $company->update($request->all());
+
+        return response()->json([
+            'message' => 'Įmonė sėkmingai atnaujinta!'
+        ]);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+
     public function destroy(Company $company)
     {
-        //
+        $company->delete();
+        return response()->json([
+            'message' => 'Įmonė sėkmingai ištrinta!'
+        ]);
     }
 }

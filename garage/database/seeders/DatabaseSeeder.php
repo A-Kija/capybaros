@@ -47,6 +47,17 @@ class DatabaseSeeder extends Seeder
 
         }
 
+        foreach (range(1, 53) as $i) {
+            $companyName = $faker->company;
+            $companyNameParts = explode(' ', $companyName);
+            $companyNameWithoutFirstWord = implode(' ', array_slice($companyNameParts, 1));
+
+            DB::table('companies')->insert([
+                'name' => $companyNameWithoutFirstWord,
+                'type' => $faker->companySuffix,
+            ]);
+        }
+
         DB::table('users')->insert([
             'name' => 'Bebras',
             'email' => 'bebras@gmail.com',
