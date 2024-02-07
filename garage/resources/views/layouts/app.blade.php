@@ -121,6 +121,7 @@
             @yield('content')
         </main>
     </div>
+    <section data-errors></section>
 </body>
 
 </html>

@@ -40,7 +40,7 @@ class CompanyController extends Controller
             };
         }
 
-        $companies = $companies->get();
+        $companies = $companies->paginate(10)->withQueryString();
 
 
         

@@ -6,6 +6,46 @@ console.log('Hello! I am app.js.');
 
 let sortValue;
 
+const resetErrorBorders = form => {
+    form.querySelectorAll('input').forEach(input => {
+        input.classList.remove('border', 'border-danger');
+    });
+}
+
+const showErrors = (errors, where) => {
+    const section = document.querySelector('[data-errors]');
+    section.innerHTML = '';
+    const ul = document.createElement('ul');
+    section.appendChild(ul);
+    for (let key in errors) {
+        const li = document.createElement('li');
+        li.textContent = errors[key];
+        ul.appendChild(li);
+        where.querySelector(`[name="${key}"]`).classList.add('border', 'border-danger');
+    }
+    const timerId = setTimeout(_ => {
+        section.innerHTML = '';
+        resetErrorBorders(where);
+    }, 5000);
+    section.addEventListener('click', _ => {
+        section.innerHTML = '';
+        resetErrorBorders(where);
+        clearTimeout(timerId);
+    });
+}
+
+const makeLinks = _ => {
+    const links = document.querySelectorAll('[data-links] a');
+    links.forEach(link => {
+        link.addEventListener('click', e => {
+            e.preventDefault();
+            const url = e.target.href;
+            const pageNumber = url.split('=').pop();
+            getList(pageNumber);
+        });
+    });
+}
+
 const clearForm = form => {
     form.querySelectorAll('input').forEach(input => {
         input.value = '';
@@ -117,16 +157,29 @@ const addEventsToList = _ => {
     });
 }
 
-const getList = _ => {
+const getList = (page = 0) => {
     const list = document.querySelector('[data-list]');
     const url = list.dataset.url;
 
     const sortUrl = sortValue ? `${url}?sort=${sortValue}` : url;
 
-    axios.get(sortUrl)
+    let pageUrl = sortUrl;
+
+    if (sortValue) {
+        if (page) {
+            pageUrl = `${sortUrl}&page=${page}`;
+        } 
+    } else {
+        if (page) {
+            pageUrl = `${sortUrl}?page=${page}`;
+        }
+    }
+
+    axios.get(pageUrl)
         .then(response => {
             list.innerHTML = response.data.html;
             addEventsToList();
+            makeLinks();
         })
         .catch(error => {
             console.error(error);
@@ -153,6 +206,7 @@ if (document.querySelector('[data-create-form]')) {
             })
             .catch(error => {
                 console.error(error);
+                showErrors(error.response.data.errors, createForm);
             });
     });
 
@@ -168,6 +222,7 @@ if (document.querySelector('[data-create-form]')) {
             getList();
         });
     }
+
 
 
 

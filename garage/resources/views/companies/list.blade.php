@@ -20,3 +20,6 @@
     </tr>
     @endforelse
 </table>
+<div data-links>
+    {{ $companies->links() }}
+</div>
