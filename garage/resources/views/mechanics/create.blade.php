@@ -26,7 +26,6 @@
                                     <button type="button" class="btn btn-danger ms-2">-</button>
                                 </div>
                                 <small class="form-text text-muted">Pridėkite mechaniko nuotrauką</small>
-                                
                             </div>
                         </div>
                         <div data-photo-inputs></div>
