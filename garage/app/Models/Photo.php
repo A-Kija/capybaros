@@ -8,4 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Photo extends Model
 {
     use HasFactory;
+
+    protected $fillable = ['mechanic_id', 'path'];
+    public $timestamps = false;
 }

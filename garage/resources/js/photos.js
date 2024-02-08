@@ -6,8 +6,13 @@ if (document.querySelector('[data-photo-create]')) {
     const addButtons = section.querySelector('[data-add-button');
     addButtons.addEventListener('click', _ => {
         const input = section.querySelector('[data-photo-inputs-clone] div').cloneNode(true);
-        input.setAttribute('name', 'photos[]');
+        input.querySelector('input').setAttribute('name', 'photos[]');
         inputs.appendChild(input);
+
+        const removeButton = input.querySelector('button');
+        removeButton.addEventListener('click', _ => {
+            input.remove();
+        });
     });
     
 }

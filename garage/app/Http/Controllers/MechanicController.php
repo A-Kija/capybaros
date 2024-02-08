@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Mechanic;
+use App\Models\Photo;
 use App\Http\Requests\StoreMechanicRequest;
 use App\Http\Requests\UpdateMechanicRequest;
 use Illuminate\Http\Request;
@@ -84,7 +85,23 @@ class MechanicController extends Controller
      */
     public function store(StoreMechanicRequest $request)
     {
-        Mechanic::create($request->all());
+        dump($request->all());
+        
+        $mechanicId = Mechanic::create($request->all())->id;
+
+        if ($request->photos) {
+            foreach ($request->photos as $photo) {
+                $originalName = $photo->getClientOriginalName();
+                $namePrefix = time();
+                $originalName = "{$namePrefix}-{$originalName}";
+                $photo->move(public_path().'/img/', $originalName);
+                Photo::create([
+                    'mechanic_id' => $mechanicId,
+                    'path' => $originalName,
+                ]);
+            }
+        }
+
 
         return redirect()->route('mechanics-index')->with('ok', 'Štai ir naujas mechanikas!');
     }
@@ -114,6 +131,9 @@ class MechanicController extends Controller
      */
     public function update(UpdateMechanicRequest $request, Mechanic $mechanic)
     {
+        
+       
+        
         $mechanic->update($request->all());
 
         return redirect()->route('mechanics-index')->with('ok', 'Mechaniko duomenys dabar jau pakeisti.');
