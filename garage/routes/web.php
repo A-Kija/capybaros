@@ -23,14 +23,14 @@ Route::get('/', function () {
 
 // Mechanics CRUD Group
 Route::prefix('mechanics')->name('mechanics-')->group(function () {
-    Route::get('/', [M::class, 'index'])->middleware(['role:admin|animal'])->name('index');
-    Route::get('/create', [M::class, 'create'])->name('create');
-    Route::post('/', [M::class, 'store'])->name('store');
-    Route::get('/{mechanic}', [M::class, 'show'])->name('show');
-    Route::get('/{mechanic}/edit', [M::class, 'edit'])->name('edit');
-    Route::put('/{mechanic}', [M::class, 'update'])->name('update');
-    Route::get('/{mechanic}/delete', [M::class, 'delete'])->name('delete');
-    Route::delete('/{mechanic}', [M::class, 'destroy'])->name('destroy');
+    Route::get('/', [M::class, 'index'])->middleware(['role:admin|animal|user'])->name('index');
+    Route::get('/create', [M::class, 'create'])->middleware(['role:admin|animal'])->name('create');
+    Route::post('/', [M::class, 'store'])->middleware(['role:admin|animal'])->name('store');
+    Route::get('/{mechanic}', [M::class, 'show'])->middleware(['role:admin|animal|user'])->name('show');
+    Route::get('/{mechanic}/edit', [M::class, 'edit'])->middleware(['role:admin'])->name('edit');
+    Route::put('/{mechanic}', [M::class, 'update'])->middleware(['role:admin'])->name('update');
+    Route::get('/{mechanic}/delete', [M::class, 'delete'])->middleware(['role:admin'])->name('delete');
+    Route::delete('/{mechanic}', [M::class, 'destroy'])->middleware(['role:admin'])->name('destroy');
 });
 
 // Trucks CRUD Group
