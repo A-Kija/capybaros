@@ -23,7 +23,7 @@ Route::get('/', function () {
 
 // Mechanics CRUD Group
 Route::prefix('mechanics')->name('mechanics-')->group(function () {
-    Route::get('/', [M::class, 'index'])->name('index');
+    Route::get('/', [M::class, 'index'])->middleware(['role:admin|animal'])->name('index');
     Route::get('/create', [M::class, 'create'])->name('create');
     Route::post('/', [M::class, 'store'])->name('store');
     Route::get('/{mechanic}', [M::class, 'show'])->name('show');

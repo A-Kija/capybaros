@@ -10,20 +10,16 @@ use Illuminate\Http\Request;
 
 class MechanicController extends Controller
 {
-    
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-    
-    
+
+
+
     /**
      * Display a listing of the resource.
      */
     public function index(Request $request)
     {
         // $mechanics = Mechanic::all()->sortByDesc('surname'); in collection
-        
+
         $sorts = Mechanic::getSorts();
         $sortBy = $request->query('sort', '');
         $perPageSelect = Mechanic::getPerPageSelect();
@@ -37,8 +33,8 @@ class MechanicController extends Controller
             if (count($keywords) > 1) {
                 $mechanics = $mechanics->where(function ($query) use ($keywords) {
                     foreach (range(0, 1) as $index) {
-                        $query->orWhere('name', 'like', '%'.$keywords[$index].'%')
-                        ->where('surname', 'like', '%'.$keywords[1 - $index].'%');
+                        $query->orWhere('name', 'like', '%' . $keywords[$index] . '%')
+                        ->where('surname', 'like', '%' . $keywords[1 - $index] . '%');
                     }
                 });
             } else {
@@ -85,7 +81,7 @@ class MechanicController extends Controller
      */
     public function store(StoreMechanicRequest $request)
     {
-        
+
         $mechanicId = Mechanic::create($request->all())->id;
 
         if ($request->photos) {
@@ -93,7 +89,7 @@ class MechanicController extends Controller
                 $originalName = $photo->getClientOriginalName();
                 $namePrefix = time();
                 $originalName = "{$namePrefix}-{$originalName}";
-                $photo->move(public_path().'/img/', $originalName);
+                $photo->move(public_path() . '/img/', $originalName);
                 Photo::create([
                     'mechanic_id' => $mechanicId,
                     'path' => $originalName,
@@ -130,7 +126,7 @@ class MechanicController extends Controller
      */
     public function update(UpdateMechanicRequest $request, Mechanic $mechanic)
     {
-        
+
         $mechanic->update($request->all());
 
         $mechanicPhotosIds = $mechanic->photos->pluck('id')->toArray();
@@ -145,7 +141,7 @@ class MechanicController extends Controller
             foreach ($toDelete as $photoId) {
                 $photo = Photo::find($photoId);
                 $photo->delete();
-                $path = public_path().'/img/'.$photo->path;
+                $path = public_path() . '/img/' . $photo->path;
                 if (file_exists($path)) {
                     unlink($path);
                 }
@@ -154,10 +150,14 @@ class MechanicController extends Controller
         if ($toOvewrite) {
             foreach ($toOvewrite as $index) {
                 $photo = Photo::find($request->photo_id[$index]);
+                $path = public_path() . '/img/' . $photo->path;
+                if (file_exists($path)) {
+                    unlink($path);
+                }
                 $originalName = $request->photos[$index]->getClientOriginalName();
                 $namePrefix = time();
                 $originalName = "{$namePrefix}-{$originalName}";
-                $request->photos[$index]->move(public_path().'/img/', $originalName);
+                $request->photos[$index]->move(public_path() . '/img/', $originalName);
                 $photo->update([
                     'path' => $originalName,
                 ]);
@@ -168,7 +168,7 @@ class MechanicController extends Controller
                 $originalName = $request->photos[$index]->getClientOriginalName();
                 $namePrefix = time();
                 $originalName = "{$namePrefix}-{$originalName}";
-                $request->photos[$index]->move(public_path().'/img/', $originalName);
+                $request->photos[$index]->move(public_path() . '/img/', $originalName);
                 Photo::create([
                     'mechanic_id' => $mechanic->id,
                     'path' => $originalName,
@@ -183,7 +183,7 @@ class MechanicController extends Controller
      * Confirm remove the specified resource from storage.
      */
 
-    public function delete(Mechanic $mechanic) 
+    public function delete(Mechanic $mechanic)
     {
         return view('mechanics.delete', [
             'mechanic' => $mechanic,
@@ -196,6 +196,16 @@ class MechanicController extends Controller
      */
     public function destroy(Mechanic $mechanic)
     {
+        if ($mechanic->photos()->count()) {
+            foreach($mechanic->photos as $photo) {
+                $photo->delete();
+                $path = public_path() . '/img/' . $photo->path;
+                if (file_exists($path)) {
+                    unlink($path);
+                }
+            }
+        }
+
         $mechanic->delete();
 
         return redirect()->route('mechanics-index')->with('info', 'Liūdna informuoti, bet mechanikas atleistas iš darbo.');
