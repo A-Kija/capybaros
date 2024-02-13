@@ -24,7 +24,7 @@ class StoreTruckRequest extends FormRequest
         return [
             'brand' => 'required|string|min:2|max:64',
             'plate' => 'required|string|regex:/^[A-Z]{3}-[0-9]{3}$/', // ABC-123
-            'mechanic_id' => 'required|integer|exists:mechanics,id',
+            'mechanic_id' => 'sometimes|array',
         ];
     }
 
@@ -44,9 +44,6 @@ class StoreTruckRequest extends FormRequest
             'plate.required' => 'Nėra įvestas numeris',
             'plate.string' => 'Numeris turi būti tekstas',
             'plate.regex' => 'Numeris turi būti tokiu formatu: ABC-123',
-            'mechanic_id.required' => 'Nepasirinktas mechanikas',
-            'mechanic_id.integer' => 'Mechaniko ID turi būti skaičius',
-            'mechanic_id.exists' => 'Toks mechanikas neegzistuoja',
         ];
     }
 }

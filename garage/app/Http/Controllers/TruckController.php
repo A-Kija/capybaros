@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Truck;
 use App\Models\Mechanic;
+use App\Models\MechanicTruck;
 use App\Http\Requests\StoreTruckRequest;
 use App\Http\Requests\UpdateTruckRequest;
 use Illuminate\Http\Request;
@@ -25,7 +26,7 @@ class TruckController extends Controller
         $allBrands = Truck::select('brand')->distinct()->orderBy('brand')->get()->pluck('brand')->toArray();
 
 
-        
+
         $sorts = Truck::getSorts();
         $sortBy = $request->query('sort', '');
         $perPageSelect = Truck::getPerPageSelect();
@@ -87,7 +88,19 @@ class TruckController extends Controller
      */
     public function store(StoreTruckRequest $request)
     {
-        Truck::create($request->all());
+        $truckId = Truck::create($request->all())->id;
+
+        if ($request->has('mechanic_id')) {
+            $uniqueMechanics = array_unique($request->mechanic_id);
+            foreach ($uniqueMechanics as $mechanicId) {
+                if (Mechanic::find($mechanicId) !== null) {
+                    MechanicTruck::create([
+                        'truck_id' => $truckId,
+                        'mechanic_id' => $mechanicId,
+                    ]);
+                }
+            }
+        }
 
         return redirect()->route('trucks-index')->with('ok', 'Sunkvežimis sėkmingai pridėtas.');
     }
@@ -107,11 +120,13 @@ class TruckController extends Controller
      */
     public function edit(Truck $truck)
     {
-        $trucks = Mechanic::all();
-        
+        $mechanics = Mechanic::all();
+        $truckMechanics = $truck->mechanics->pluck('id')->toArray();
+
         return view('trucks.edit', [
             'truck' => $truck,
-            'mechanics' => $trucks,
+            'mechanics' => $mechanics,
+            'truckMechanics' => $truckMechanics,
         ]);
     }
 
@@ -121,6 +136,22 @@ class TruckController extends Controller
     public function update(UpdateTruckRequest $request, Truck $truck)
     {
         $truck->update($request->all());
+
+        $oldMechanics = $truck->mechanics->pluck('id')->toArray();
+        $newMechanics = array_unique($request->mechanic_id ?? []);
+        $toDelete = array_diff($oldMechanics, $newMechanics);
+        $toAdd = array_diff($newMechanics, $oldMechanics);
+
+        // dd($request->all());
+
+        MechanicTruck::whereIn('mechanic_id', $toDelete)->where('truck_id', $truck->id)->delete();
+
+        foreach ($toAdd as $mechanicId) {
+            MechanicTruck::create([
+                'truck_id' => $truck->id,
+                'mechanic_id' => $mechanicId,
+            ]);
+        }
 
         return redirect()->route('trucks-index')->with('ok', 'Sunkvežimis sėkmingai atnaujintas.');
     }

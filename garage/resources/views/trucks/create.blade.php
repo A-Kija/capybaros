@@ -27,17 +27,36 @@
                                     <select class="form-select">
                                         <option selected value="0">Pasirinkite mechaniką</option>
                                         @foreach ($mechanics as $mechanic)
-                                        <option value="{{$mechanic->id}}" @if(old('mechanic_id', $mechanicId ?
-                                            $mechanicId : 0)==$mechanic->id) selected @endif
-                                            >{{$mechanic->name}} {{$mechanic->surname}}</option>
+                                        <option value="{{$mechanic->id}}">{{$mechanic->name}} {{$mechanic->surname}}
+                                        </option>
                                         @endforeach
                                     </select>
-                                    <button type="button" class="btn btn-danger ms-2">-</button>
+                                    <button type="button" class="btn btn-danger ms-2" data-mechanic-remove>-</button>
                                 </div>
                                 <small class="form-text text-muted">Priskirkite mechaniką sunkvežimio priežiūrai</small>
                             </div>
                         </div>
-                        <div data-mechanic-inputs></div>
+                        <div data-mechanic-inputs>
+                            @if (old('mechanic_id'))
+                            @foreach (old('mechanic_id') as $key => $mechanicId)
+                            <div class="form-group
+                                mb-3">
+                                <label>Mechanikas</label>
+                                <div class="d-flex">
+                                    <select name="mechanic_id[]" class="form-select">
+                                        <option selected value="0">Pasirinkite mechaniką</option>
+                                        @foreach ($mechanics as $mechanic)
+                                        <option value="{{$mechanic->id}}" @if($mechanic->id == $mechanicId) selected
+                                            @endif>{{$mechanic->name}} {{$mechanic->surname}}</option>
+                                        @endforeach
+                                    </select>
+                                    <button type="button" class="btn btn-danger ms-2" data-mechanic-remove>-</button>
+                                </div>
+                                <small class="form-text text-muted">Priskirkite mechaniką sunkvežimio priežiūrai</small>
+                            </div>
+                            @endforeach
+                            @endif
+                        </div>
                         <button type="button" data-add-button class="btn btn-secondary">Pridėti mechaniką</button>
                         <button type="submit" class="btn btn-primary">Pridėti</button>
                         @csrf
