@@ -39,8 +39,9 @@ class Truck extends Model
         return self::$perPageSelect;
     }
 
-    public function mechanic()
+    public function mechanics()
     {
-        return $this->belongsTo(Mechanic::class);
+        return $this->belongsToMany(Mechanic::class, 'mechanic_trucks');
     }
+    
 }

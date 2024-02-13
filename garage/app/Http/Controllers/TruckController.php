@@ -36,7 +36,7 @@ class TruckController extends Controller
         $trucks = Truck::query();
 
         if ($mechanicId > 0) {
-            $trucks = $trucks->where('mechanic_id', $mechanicId);
+            $trucks = Mechanic::find($mechanicId)->trucks();
         }
 
         if ($brandId !== '') {

@@ -42,10 +42,26 @@ class DatabaseSeeder extends Seeder
             DB::table('trucks')->insert([
                 'brand' => $faker->randomElement($trucksModels),
                 'plate' => $faker->regexify('[A-Z]{3}-[0-9]{3}'),
-                'mechanic_id' => $faker->numberBetween(1, 20),
             ]);
 
         }
+
+        foreach (range(1, 100) as $i) {
+
+            $mechanics = DB::table('mechanics')->inRandomOrder()->limit(rand(1, 10))->get();
+
+            $mechanicIds = $mechanics->pluck('id')->toArray();
+
+            foreach ($mechanicIds as $mechanicId) {
+                DB::table('mechanic_trucks')->insert([
+                    'mechanic_id' => $mechanicId,
+                    'truck_id' => $i,
+                ]);
+            }
+
+        }
+
+
 
         foreach (range(1, 53) as $i) {
             $companyName = $faker->company;

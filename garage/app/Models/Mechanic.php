@@ -43,7 +43,7 @@ class Mechanic extends Model
     
     public function trucks()
     {
-        return $this->hasMany(Truck::class);
+        return $this->belongsToMany(Truck::class, 'mechanic_trucks');
     }
 
     public function photos()

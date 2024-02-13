@@ -68,14 +68,14 @@
                         <tr>
                             <th>Modelis</th>
                             <th>Numeris</th>
-                            <th>Mechanikas</th>
+                            <th>Mechanikai</th>
                             <th>Veiksmai</th>
                         </tr>
                         @forelse ($trucks as $truck)
                         <tr>
                             <td>{{ $truck->brand }}</td>
                             <td>{{ $truck->plate }}</td>
-                            <td>{{ $truck->mechanic->name }} {{ $truck->mechanic->surname }}</td>
+                            <td>{{$truck->mechanics()->count()}}</td>
                             <td>
                                 <a class="btn btn-success m-1" href={{ route('trucks-edit', $truck) }}>Redaguoti</a>
                                 <a class="btn btn-danger m-1" href={{ route('trucks-delete', $truck) }}>Nurašyti</a>
