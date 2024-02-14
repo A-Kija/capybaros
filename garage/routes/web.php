@@ -65,6 +65,6 @@ Route::prefix('companies')->name('companies-')->group(function () {
 
 
 
-Auth::routes();
+Auth::routes(['register' => false, 'reset' => false, 'verify' => false]);
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

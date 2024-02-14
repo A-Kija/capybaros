@@ -35,11 +35,8 @@
                             </div>
                         </div>
 
-
                         <div data-mechanic-inputs>
-
-
-                            @foreach ($truckMechanics as $mechanicId)
+                            @foreach (old('mechanic_id') ?? $truckMechanics as $mechanicId)
                             <div class="form-group mb-3">
                                 <label>Mechanikas</label>
                                 <div class="d-flex">
@@ -55,9 +52,7 @@
                                 <small class="form-text text-muted">Priskirkite mechaniką sunkvežimio priežiūrai</small>
                             </div>
                             @endforeach
-
                         </div>
-
 
                         <button type="submit" class="btn btn-primary">Išsaugoti</button>
                         <button type="button" data-add-button class="btn btn-secondary">Pridėti mechaniką</button>
