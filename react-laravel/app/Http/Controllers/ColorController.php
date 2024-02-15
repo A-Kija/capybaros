@@ -64,6 +64,12 @@ class ColorController extends Controller
      */
     public function destroy(Color $color)
     {
-        //
+        
+        sleep(3);
+        // abort(403, 'Unauthorized action.');
+        $color->delete();
+        return response()->json([
+            'message' => 'Success',
+        ]);
     }
 }

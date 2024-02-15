@@ -33,6 +33,7 @@ Route::get('/animal-r', [AnimalController::class, 'indexReact']);
 
 Route::prefix('colors')->name('color.')->group(function () {
     Route::get('/', [ColorController::class, 'index'])->name('index');
+    Route::delete('/{color}', [ColorController::class, 'destroy'])->name('destroy');
 });
 
 
