@@ -37,14 +37,15 @@ main {
                 border-radius: 50%;
                 background-color: #000;
                 color: #fff;
-                font-size: 1.5rem;
+                font-size: 1.5em;
                 cursor: pointer;
                 transition: all 0.3s ease;
+                z-index: 10;
                 .buttons {
-                    width: 200px;
-                    height: 100px;
-                    background-color: #00000055;
-                    border: 2px solid #fff;
+                    gap: 1em;
+                    padding: 1em;
+                    background-color: #ffffff;
+                    border-radius: 10px;
                     position: absolute;
                     top: 0;
                     left: 50%;
@@ -52,24 +53,32 @@ main {
                     display: none;
                     justify-content: space-around;
                     align-items: center;
-                    z-index: 10;
+
+                    p {
+                        font-size: 0.6em;
+                        color:#000;
+                    }
+                    
                     .edit {
-                        color: darkgreen;
-                        cursor: pointer;
-                        padding: 5px 10px;
-                        background-color: #fff;
+                        padding: 10px 20px;
+                        background-color: darkgreen;
+                        color: #fff;
                         border: none;
+                        cursor: pointer;
+                        font-size: 0.6em;
                     }
                     .delete {
-                        color: darkred;
-                        cursor: pointer;
-                        padding: 5px 10px;
-                        background-color: #fff;
+                        padding: 10px 20px;
+                        background-color: darkred;
+                        color: #fff;
                         border: none;
+                        cursor: pointer;
+                        font-size: 0.6em;
                     }
                 }
                 &:hover {
                     transform: scale(1.1);
+                    z-index: 100;
                     .buttons {
                         display: flex;
                     }

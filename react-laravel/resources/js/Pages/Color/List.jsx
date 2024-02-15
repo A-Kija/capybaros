@@ -17,6 +17,7 @@ export default function List() {
                             height: color.size + 'px'
                         }}>
                             <div className="buttons">
+                                <p>Actions:</p>
                                 <button className="edit">Edit</button>
                                 <button className="delete" onClick={_ => setDeleteColor(color)}>Delete</button>
                             </div>
