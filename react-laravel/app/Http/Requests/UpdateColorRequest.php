@@ -11,7 +11,7 @@ class UpdateColorRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,8 @@ class UpdateColorRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'hex' => 'required|string|min:7|max:7',
+            'size' => 'required|int|between:100,200',
         ];
     }
 }

@@ -88,7 +88,7 @@ main {
     }
 }
 
-.modal-delete {
+.modal-delete, .modal-edit, .modal-create {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -131,6 +131,48 @@ main {
                 border: none;
                 cursor: pointer;
             }
+            .save {
+                padding: 10px 20px;
+                background-color: darkblue;
+                color: #fff;
+                border: none;
+                cursor: pointer;
+            }
         }
     }
+}
+
+.form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    gap: 1em;
+    width: 100%;
+    margin-top: 2em;
+    input[type="color"] {
+        padding: 1em;
+        border-radius: 10px;
+        border: none;
+        height: 80px;
+        width: 80px;
+        cursor: pointer;
+    }
+    input[type="range"] {
+        width: 100%;
+        padding: 1em;
+        border-radius: 10px;
+        border: none;
+        cursor: pointer;
+    }
+}
+
+button.create {
+    padding: 10px 20px;
+    background-color: orangered;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    margin-top: 2em;
+    font-size: 1.2em;
 }
